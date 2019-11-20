@@ -33,7 +33,7 @@ def displayLink(line):
 
 # CMD about
 def about():
-    info('Version:      1.0.0')
+    info('Version:      1.0.1')
     info('Author:       ~dustin')
     info('Source:       https://github.com/0xdstn/lon')
     info('More info:    https://tilde.town/~dustin/projects/lon')
@@ -45,6 +45,7 @@ def usage():
     print('Commands:')
     print('  init                                Initialize your bookmarks')
     print('  list                                View a list of all your bookmarks')
+    print('  tags                                View a list of all your tags')
     print('  search <term>                       Search for bookmarks containing the provided term')
     print('  tagged <tag>                        Search for bookmarks tagged with the provided tag')
     print('  add <url> "<title>" <tag1>,<tag2>   Add a bookmark with the provided details')
@@ -82,6 +83,25 @@ def listLinks():
     for line in data:
         displayLink(line)
 
+# CMD: tags
+def listTags():
+    counts = []
+    tags = []
+
+    for line in data:
+        parsed = parseLine(line)
+        for tag in parsed[2]:
+            if tag in tags:
+                counts[tags.index(tag)] = counts[tags.index(tag)] + 1;
+            else:
+                tags.append(tag)
+                counts.append(1)
+
+    print('')
+
+    for x in sorted(range(len(counts)), reverse=True, key=lambda k: counts[k]):
+        print(tags[x] + ' (' + str(counts[x]) + ')')
+
 # CMD: add <url> <title> <tags>
 def add(url, title, tags):
     line = url + ' [' + title + '] ' + tags
@@ -106,6 +126,7 @@ if len(sys.argv) > 1:
                 f.close()
 
             if cmd == 'list': listLinks()
+            elif cmd == 'tags': listTags()
             elif cmd == 'search' and len(sys.argv) == 3: search(sys.argv[2])
             elif cmd == 'tagged' and len(sys.argv) == 3: tagged(sys.argv[2])
             elif cmd == 'add' and len(sys.argv) == 5: add(sys.argv[2],sys.argv[3],sys.argv[4])
