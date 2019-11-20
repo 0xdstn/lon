@@ -107,7 +107,7 @@ def add(url, title, tags):
     line = url + ' [' + title + '] ' + tags
 
     bookmarksFile = open(bookmarksPath,'a')
-    bookmarksFile.write(line)
+    bookmarksFile.write(line + "\n")
     bookmarksFile.close()
 
     print('[+] Added')
