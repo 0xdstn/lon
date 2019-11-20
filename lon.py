@@ -47,7 +47,7 @@ def usage():
     print('  list                                View a list of all your bookmarks')
     print('  search <term>                       Search for bookmarks containing the provided term')
     print('  tagged <tag>                        Search for bookmarks tagged with the provided tag')
-    print('  add <url> "<title>" <tag1>,<tag2>   Search for bookmarks tagged with the provided tag')
+    print('  add <url> "<title>" <tag1>,<tag2>   Add a bookmark with the provided details')
 
 # CMD: init
 def init():
